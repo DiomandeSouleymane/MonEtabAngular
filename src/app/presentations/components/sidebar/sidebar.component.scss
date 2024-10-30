@@ -1,0 +1,9 @@
+.containerGauche {
+  width: 250px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 5px solid #999;
+  background-color: #f8f9fa;
+}

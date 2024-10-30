@@ -1,0 +1,22 @@
+<div class="app-container">
+  <nav class="sidebar">
+    <a routerLink="/dashboard" class="nav-link">
+      <fa-icon icon="tachometer-alt"></fa-icon> Tableau de bord
+    </a>
+    <a routerLink="/students" class="nav-link">
+      <fa-icon icon="user-graduate"></fa-icon> Élèves
+    </a>
+    <a routerLink="/teachers" class="nav-link">
+      <fa-icon icon="chalkboard-teacher"></fa-icon> Professeurs
+    </a>
+    <a routerLink="/users" class="nav-link">
+      <fa-icon icon="users"></fa-icon> Utilisateurs
+    </a>
+    <a routerLink="/report" class="nav-link">
+      <fa-icon icon="chart-line"></fa-icon> Rapport
+    </a>
+  </nav>
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

@@ -1,0 +1,51 @@
+<div style="display: flex">
+  <app-sidebar></app-sidebar>
+
+  <div class="student-list">
+    <div class="header">
+      <h2>Liste des Élèves</h2>
+      <a href="/students/add" class="lien-menu">
+        <img src="fontawesome/svgs/solid/plus.svg" alt=""> Nouvel élève
+      </a>
+    </div>
+
+    <div class="search-bar">
+      <form (submit)="searchStudents()">
+        <input type="text" [(ngModel)]="query" name="query" placeholder="Recherche : (Nom, Genre, Matricule)" />
+        <select [(ngModel)]="selectedGender" name="selectedGender">
+          <option value="">Tous</option>
+          <option value="MAN">HOMME</option>
+          <option value="WOMAN">FEMME</option>
+          <option value="OTHER">AUTRE</option>
+        </select>
+        <button type="submit">Rechercher</button>
+      </form>
+    </div>
+
+    <table>
+      <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Prénom</th>
+        <th>Matricule</th>
+        <th>Téléphone</th>
+        <th>Genre</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let student of filteredStudents">
+        <td>{{ student.firstName }}</td>
+        <td>{{ student.lastName }}</td>
+        <td>{{ student.matricule }}</td>
+        <td>{{ student.phoneNumber }}</td>
+        <td>{{ student.gender }}</td>
+        <td>
+          <button (click)="editStudent(student.id)">Modifier</button>
+          <button (click)="deleteStudent(student.id)" class="delete-btn">Supprimer</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

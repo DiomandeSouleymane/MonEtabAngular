@@ -1,0 +1,74 @@
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.header h2 {
+  margin: 0;
+}
+
+.header .lien-menu {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  font-weight: bold;
+  color: #007bff; /* Couleur bleue pour le lien */
+}
+
+.header .lien-menu img {
+  margin-right: 5px; /* Espace entre l'icône et le texte */
+}
+
+
+
+
+
+.student-list {
+  width: 90%;
+  margin: 0 auto;
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  .search-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    input, select, button {
+      padding: 0.5rem;
+      margin-right: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+
+    th, td {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f4f4f4;
+    }
+
+    .delete-btn {
+      background-color: crimson;
+      color: white;
+      border: none;
+      cursor: pointer;
+      padding: 5px;
+      border-radius: 4px;
+    }
+  }
+}

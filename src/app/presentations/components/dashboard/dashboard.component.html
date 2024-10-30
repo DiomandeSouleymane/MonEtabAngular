@@ -1,0 +1,29 @@
+<div style="display: flex">
+<app-sidebar></app-sidebar>
+<main class="dashboard containerDroit">
+  <h2>Tableau de bord</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>Nombre d'élèves</h3>
+      <p id="studentCount">{{ studentCount }}</p>
+    </div>
+    <div class="card">
+      <h3>Nombre de professeurs</h3>
+      <p id="teacherCount">{{ teacherCount }}</p>
+    </div>
+    <div class="card">
+      <h3>Nombre d'utilisateurs</h3>
+      <p id="userCount">{{ userCount }}</p>
+    </div>
+    <div class="card">
+      <h3>Élèves par genre</h3>
+      <div style="display: block;">
+        <canvas baseChart
+                [data]="pieChartData"
+                [type]="pieChartType">
+        </canvas>
+      </div>
+    </div>
+  </div>
+</main>
+</div>

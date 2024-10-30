@@ -1,0 +1,47 @@
+<div class="main-container">
+  <div class="containerGauche">
+    <div class="containerGauche">
+      <div class="up">
+        <h1>
+          <fa-icon [icon]="faSchool"></fa-icon>
+          Mon Etab
+        </h1>
+        <hr class="separateur">
+        <ul>
+          <li routerLink="/home" class="menuHorizontal lien-menu">
+            <fa-icon [icon]="faDashboard"></fa-icon>
+            Tableau de bord
+          </li>
+          <li routerLink="/student-list" class="menuHorizontal lien-menu">
+            <fa-icon [icon]="faUserSlash"></fa-icon>
+            Élèves
+          </li>
+          <li routerLink="/teachers" class="menuHorizontal lien-menu">
+            <fa-icon [icon]="faChalkboardTeacher"></fa-icon>
+            Professeurs
+          </li>
+          <li routerLink="/users" class="menuHorizontal lien-menu">
+            <fa-icon [icon]="faUser"></fa-icon>
+            Utilisateurs
+          </li>
+          <li routerLink="/reports" class="menuHorizontal lien-menu">
+            <fa-icon [icon]="faChartPie"></fa-icon>
+            Rapport
+          </li>
+        </ul>
+      </div>
+
+      <div class="down">
+        <form action="/logout" method="post">
+          <button type="submit" class="logout-button">
+            <fa-icon [icon]="faSignOutAlt"></fa-icon>
+            Déconnexion
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="containerDroit">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
