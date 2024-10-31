@@ -1,1 +1,123 @@
-<p>teachers works!</p>
+<div style="display: flex">
+  <app-sidebar></app-sidebar>
+  <div class="teacher">
+    <div class="header">
+      <h2>Liste des Professeurs</h2>
+      <!-- Bouton pour afficher le formulaire d'ajout dun professeur -->
+      <a (click)="toggleForm()" class="lien-menu">
+        <img src="fontawesome/svgs/solid/plus.svg" alt="Icone Ajouter"> Nouvau professeur
+      </a>
+    </div>
+
+    <!-- Formulaire d'ajout / édition -->
+    <div *ngIf="showForm" class="form-container">
+      <div class="containerPrincipal">
+        <div class="enTete">
+          <a (click)="toggleForm()" class="lien-menu">
+            <img src="/assets/fontawesome/svgs/solid/backward.svg" alt="Retour">Retour
+          </a>
+        </div>
+
+        <form [formGroup]="teacherForm" (ngSubmit)="onSubmit()">
+          <h1>{{ teacherForm.get('id')?.value ? 'Modifier un professeur' : 'Ajouter un professeur' }}</h1>
+
+          <input type="hidden" formControlName="id" />
+
+          <div class="form-group">
+            <input formControlName="lastName" type="text" placeholder="NOM" required />
+            <input formControlName="firstName" type="text" placeholder="PRÉNOM" required />
+          </div>
+
+          <div class="form-group">
+            <input formControlName="phoneNumber" type="text" placeholder="TÉLÉPHONE" required />
+            <input formControlName="birthday" type="date" placeholder="DATE DE NAISSANCE" required />
+          </div>
+
+          <div class="form-group">
+            <label>Genre:</label>
+            <label><input formControlName="gender" value="MAN" type="radio" /> Homme</label>
+            <label><input formControlName="gender" value="WOMAN" type="radio" /> Femme</label>
+            <label><input formControlName="gender" value="OTHER" type="radio" /> Autre</label>
+          </div>
+
+          <div class="form-group">
+            <input formControlName="urlPicture" type="text" placeholder="URL de l'image" required />
+          </div>
+
+          <div class="form-group">
+            <select formControlName="specialty" required>
+              <option value="">Sélectionner une matière</option>
+              <option value="">Sélectionner une matière</option>
+              <option value="Math">Math</option>
+              <option value="Physique">Physique</option>
+              <option value="EPS">EPS</option>
+              <option value="Anglais">Anglais</option>
+              <option value="SVT">SVT</option>
+              <option value="Philosophie">Philosophie</option>
+              <option value="Francais">Francais</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Available:</label>
+            <label><input formControlName="available" value="true" type="radio" /> Oui</label>
+            <label><input formControlName="available" value="false" type="radio" /> Non</label>
+          </div>
+
+
+          <div class="form-group">
+            <button type="submit" [disabled]="!teacherForm.valid">Enregistrer</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Liste des élèves avec recherche -->
+    <div *ngIf="!showForm">
+      <div class="search-bar">
+        <form (submit)="searchTeachers()">
+          <input type="text" [(ngModel)]="query" name="query" placeholder="Recherche : (Nom, Genre)" />
+          <select [(ngModel)]="selectedGender" name="selectedGender">
+            <option value="">Tous</option>
+            <option value="MAN">HOMME</option>
+            <option value="WOMAN">FEMME</option>
+            <option value="OTHER">AUTRE</option>
+          </select>
+          <button type="submit">Rechercher</button>
+        </form>
+      </div>
+
+      <table>
+        <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>UrlPicture</th>
+          <th>Téléphone</th>
+          <th>Specialty</th>
+          <th>Available</th>
+          <th>Genre</th>
+          <th>Birthday</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let teacher of filteredTeachers">
+          <td>{{ teacher.lastName }}</td>
+          <td>{{ teacher.firstName }}</td>
+          <td>{{ teacher.urlPicture }}</td>
+          <td>{{ teacher.phoneNumber }}</td>
+          <td>{{ teacher.specialty }}</td>
+          <td>{{ teacher.available }}</td>
+          <td>{{ teacher.gender }}</td>
+          <td>{{ teacher.birthday }}</td>
+          <td>
+            <button (click)="editTeacher(teacher.id)">Modifier</button>
+            <button (click)="deleteTeacher(teacher.id)" class="delete-btn">Supprimer</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,51 +1,118 @@
 <div style="display: flex">
   <app-sidebar></app-sidebar>
-
   <div class="student-list">
     <div class="header">
       <h2>Liste des Élèves</h2>
-      <a href="/students/add" class="lien-menu">
-        <img src="fontawesome/svgs/solid/plus.svg" alt=""> Nouvel élève
+      <!-- Bouton pour afficher le formulaire d'ajout d'élève -->
+      <a (click)="toggleForm()" class="lien-menu">
+        <img src="fontawesome/svgs/solid/plus.svg" alt="Icone Ajouter"> Nouvel élève
       </a>
     </div>
 
-    <div class="search-bar">
-      <form (submit)="searchStudents()">
-        <input type="text" [(ngModel)]="query" name="query" placeholder="Recherche : (Nom, Genre, Matricule)" />
-        <select [(ngModel)]="selectedGender" name="selectedGender">
-          <option value="">Tous</option>
-          <option value="MAN">HOMME</option>
-          <option value="WOMAN">FEMME</option>
-          <option value="OTHER">AUTRE</option>
-        </select>
-        <button type="submit">Rechercher</button>
-      </form>
+    <!-- Formulaire d'ajout / édition -->
+    <div *ngIf="showForm" class="form-container">
+      <div class="containerPrincipal">
+        <div class="enTete">
+          <a (click)="toggleForm()" class="lien-menu">
+            <img src="/assets/fontawesome/svgs/solid/backward.svg" alt="Retour">Retour
+          </a>
+        </div>
+
+        <form [formGroup]="studentsForm" (ngSubmit)="onSubmit()">
+          <h1>{{ studentsForm.get('id')?.value ? 'Modifier un élève' : 'Ajouter un élève' }}</h1>
+
+          <input type="hidden" formControlName="id" />
+
+          <div class="form-group">
+            <input formControlName="lastName" type="text" placeholder="NOM" required />
+            <input formControlName="firstName" type="text" placeholder="PRÉNOM" required />
+          </div>
+
+          <div class="form-group">
+            <input formControlName="matricule" type="text" placeholder="MATRICULE" required />
+            <input formControlName="phoneNumberFather" type="text" placeholder="NUMÉRO DU PÈRE" required />
+          </div>
+
+          <div class="form-group">
+            <input formControlName="phoneNumber" type="text" placeholder="TÉLÉPHONE" required />
+            <input formControlName="birthday" type="date" placeholder="DATE DE NAISSANCE" required />
+          </div>
+
+          <div class="form-group">
+            <label>Genre:</label>
+            <label><input formControlName="gender" value="MAN" type="radio" /> Homme</label>
+            <label><input formControlName="gender" value="WOMAN" type="radio" /> Femme</label>
+            <label><input formControlName="gender" value="OTHER" type="radio" /> Autre</label>
+          </div>
+
+          <div class="form-group">
+            <input formControlName="urlPicture" type="text" placeholder="URL de l'image" required />
+          </div>
+
+          <div class="form-group">
+            <select formControlName="classe" required>
+              <option value="">Sélectionner une classe</option>
+              <option value="6eme">6ème</option>
+              <option value="5eme">5ème</option>
+              <option value="4eme">4ème</option>
+              <option value="3eme">3ème</option>
+              <option value="2cndA">2nde A</option>
+              <option value="2cndC">2nde C</option>
+              <option value="1erD">1ère D</option>
+              <option value="1erC">1ère C</option>
+              <option value="TD">Terminale D</option>
+              <option value="TC">Terminale C</option>
+              <option value="TA">Terminale A</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <button type="submit" [disabled]="!studentsForm.valid">Enregistrer</button>
+          </div>
+        </form>
+      </div>
     </div>
 
-    <table>
-      <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Matricule</th>
-        <th>Téléphone</th>
-        <th>Genre</th>
-        <th>Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let student of filteredStudents">
-        <td>{{ student.firstName }}</td>
-        <td>{{ student.lastName }}</td>
-        <td>{{ student.matricule }}</td>
-        <td>{{ student.phoneNumber }}</td>
-        <td>{{ student.gender }}</td>
-        <td>
-          <button (click)="editStudent(student.id)">Modifier</button>
-          <button (click)="deleteStudent(student.id)" class="delete-btn">Supprimer</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+    <!-- Liste des élèves avec recherche -->
+    <div *ngIf="!showForm">
+      <div class="search-bar">
+        <form (submit)="searchStudents()">
+          <input type="text" [(ngModel)]="query" name="query" placeholder="Recherche : (Nom, Genre, Matricule)" />
+          <select [(ngModel)]="selectedGender" name="selectedGender">
+            <option value="">Tous</option>
+            <option value="MAN">HOMME</option>
+            <option value="WOMAN">FEMME</option>
+            <option value="OTHER">AUTRE</option>
+          </select>
+          <button type="submit">Rechercher</button>
+        </form>
+      </div>
+
+      <table>
+        <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Matricule</th>
+          <th>Téléphone</th>
+          <th>Genre</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let student of filteredStudents">
+          <td>{{ student.lastName }}</td>
+          <td>{{ student.firstName }}</td>
+          <td>{{ student.matricule }}</td>
+          <td>{{ student.phoneNumber }}</td>
+          <td>{{ student.gender }}</td>
+          <td>
+            <button (click)="editStudent(student.id)">Modifier</button>
+            <button (click)="deleteStudent(student.id)" class="delete-btn">Supprimer</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
